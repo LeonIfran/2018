@@ -1,0 +1,20 @@
+crear el alta baja y modificaciond e alumno
+alumno: atributos - >
+                    Nombre (POST)
+                    Legajo (POST)
+                    Foto ()
+Se va a guardar en archivos/alumnos.txt
+la foto va a tener como nombre el nombre del alumno mas el legajo.extension
+en /archivos/fotos
+
+Baja.
+crear alumnosBorrado donde se guarden alumnos.txt
+alumnosborrados/alumnos.txt y fotosBorradas/fotofecha.extension
+
+modificacion
+AlumnosModificados/AlumnosModificados
+FotosCambiada/nombre de foto + fecha.extension
+
+Listado
+podemos devolver una tabla html con el tag img y el return del listado que sea un echo de una tabla armada
+se pasa por GET

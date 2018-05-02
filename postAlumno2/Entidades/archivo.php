@@ -4,13 +4,15 @@ class Archivo{
 	public static function Subir()
 	{
 		$retorno["Exito"] = TRUE;
-		var_dump($_FILES["archivo"]["name"]);
+		//var_dump($_FILES["archivo"]["name"]);
 		//INDICO CUAL SERA EL DESTINO DEL ARCHIVO SUBIDO
 		//$archivoTmp = date("Ymd_His") . ".jpg";
 		//$destino = "archivos/" . $archivoTmp;
 		$tipoArchivo = pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION);//obtengo la extension
+		//echo var_dump($tipoArchivo);
 		$archivoTmp = $_POST["nombre"].$_POST["legajo"].".".$tipoArchivo;
-		$destino = "archivos/fotos/" . $_POST["nombre"].$_POST["legajo"].".".$tipoArchivo;
+		//$destino = "archivos/fotos/".$_POST["nombre"].$_POST["legajo"].".".$tipoArchivo;
+		$destino = "archivos/fotos/".$destino;
 
 		//VERIFICO EL TAMAÑO MAXIMO QUE PERMITO SUBIR
 		if ($_FILES["archivo"]["size"] > 1500000) {//cambio de 500000 a 1000000
@@ -61,8 +63,7 @@ class Archivo{
 
 	public static function Mover($pathOrigen, $pathDestino)
 	{
-		//return copy($pathOrigen, $pathDestino);
-		return rename($pathOrigen, $pathDestino);//cambie el copiar por el rename
+		return copy($pathOrigen, $pathDestino);
 	}
 }
 ?>

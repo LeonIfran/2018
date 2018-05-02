@@ -51,7 +51,8 @@ class Alumno
 //--TOSTRING	
   	public function ToString()
 	{
-	  	return $this->legajo." - ".$this->nombre." - ".$this->pathFoto."\r\n";
+		  return $this->legajo." - ".$this->nombre." - ".$this->pathFoto."\r\n";
+		  //return $this->legajo." - ".$this->nombre." - ".$this->pathFoto;
 	}
 //--------------------------------------------------------------------------------//
 
@@ -75,10 +76,6 @@ class Alumno
 		{
 			$cant = fwrite($ar, $obj->ToString());
 		} */
-		if($cant > 0)
-		{
-			$resultado = TRUE;			
-		} 
 		//CIERRO EL ARCHIVO
 		fclose($ar);
 		
@@ -98,11 +95,11 @@ class Alumno
 			$Alumnos = explode(" - ", $archAux);
 			//http://www.w3schools.com/php/func_string_explode.asp
 			$Alumnos[0] = trim($Alumnos[0]);
-
-			if (isset($Alumnos[2]))//verifico que este subindice este seteado
+			if (isset($Alumnos[2])) 
 			{
-				$Alumnos[2] = trim($Alumnos[2]);//le hago trim
+				$Alumnos[2] = trim($Alumnos[2]);
 			}
+			
 			if($Alumnos[0] != "")
 			{
 				$ListaDeAlumnosLeidos[] = new Alumno($Alumnos[0], $Alumnos[1],$Alumnos[2]);
@@ -165,71 +162,38 @@ class Alumno
 	}
 	public static function Eliminar($legajo)
 	{
-		if($legajo === NULL)
-			return FALSE;
-			
+
 		$resultado = TRUE;
-		
-		$ListaDeAlumnosLeidos = Alumno::TraerTodosLosAlumnos();
-		//$ListaDeAlumnos = array();
-		$imagenParaBorrar = NULL;
-
-		$alumnoBorrado = NULL;
-		$fechaBorrado = date("Ymd_His");
-		
-
-		for($i=0; $i<count($ListaDeAlumnosLeidos); $i++)
-		{
-			if($ListaDeAlumnosLeidos[$i]->legajo == $legajo)
-			{//encontre el borrado, lo excluyo
-				$alumnoBorrado = $ListaDeAlumnosLeidos[$i];//le asigno el alumno para escribirlo en alumnosborrados
-				$imagenParaBorrar = trim($ListaDeAlumnosLeidos[$i]->pathFoto);
-				unset($ListaDeAlumnosLeidos[$i]);
+		$contador=0;
+				
+		//OBTENGO TODOS LOS AlumnoS
+		$Alumnos = Alumno::TraerTodosLosAlumnos();
+		//RECORRO Y BUSCO LA IMAGEN ANTERIOR.
+		foreach($Alumnos as $item) {
+					
+			if($item->legajo == $legajo) {
+					
+				$imagen = trim($item->pathFoto);
+				unset($Alumnos[$contador]);
 				break;
 			}
-			//$ListaDeAlumnos[$i] = $ListaDeAlumnosLeidos[$i];
-			
+					
+			$contador++;
 		}
-		//$ListaDeAlumnos = $ListaDeAlumnosLeidos;
-		//echo var_dump($ListaDeAlumnos);
 		//BORRO LA IMAGEN ANTERIOR
-		//unlink("archivos/".$imagenParaBorrar);
-		
-		//http://php.net/manual/en/function.rename.php
-		$extension = pathinfo($imagenParaBorrar, PATHINFO_EXTENSION);
-		//rename("archivos/fotos/".$imagenParaBorrar,"archivos/fotosBorradas/".$fechaBorrado.".".$extension);
-		Archivo::Mover("./archivos/fotos/".$imagenParaBorrar,"./archivos/fotosBorradas/".$fechaBorrado.".".$extension);
+		$ruta = "archivos/fotos/".$imagen;
+		Archivo::Borrar($ruta);
 		//ABRO EL ARCHIVO
-		//$ListaDeAlumnos=array_filter($ListaDeAlumnos);
-		//echo var_dump($ListaDeAlumnos);
-		$ar = fopen("archivos/alumno.txt", "w");
-		
+		$ar = fopen("archivos/alumno.txt" , "w");
 		//ESCRIBO EN EL ARCHIVO
-		$ListaDeAlumnosLeidos=array_filter($ListaDeAlumnosLeidos);
-		foreach($ListaDeAlumnosLeidos AS $item)
+		foreach($Alumnos as $Alumno) 
 		{
-/* 			$esempty = empty($item);
-			 if ($esempty==FALSE) 
-			 {
-				echo "Entre a la condicion<br>";
-				$cant = fwrite($ar, $item->ToString());
-			 } */
-			 $cant = fwrite($ar, $item->ToString());
-			
- 			if($cant < 1)
-			{
-				$resultado = FALSE;
-				break;
-			}  
-
-			
+			echo $Alumno->ToString();
+			fwrite($ar , $Alumno->tostring());
 		}
-		
 		//CIERRO EL ARCHIVO
 		fclose($ar);
-		$ar2 = fopen("archivos/alumnosborrados/alumnos.txt","a");
-		$cant2 = fwrite($ar2,$alumnoBorrado->ToString());
-		fclose($ar2);
+				
 		return $resultado;
 	}
 //--------------------------------------------------------------------------------//
