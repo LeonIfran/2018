@@ -56,7 +56,7 @@ class Usuario
     public static function Guardar($obj)
     {
         echo var_dump($obj);
-        $recurso=fopen("pruebaJSON.txt","w");
+        $recurso=fopen("pruebaJSON.txt","a");
         //fwrite($recurso,json_encode($this));
         fwrite($recurso,json_encode($obj->ToArray()));
     }
