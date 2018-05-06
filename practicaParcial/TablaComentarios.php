@@ -4,25 +4,32 @@ una busqueda, y retornará una tabla con: (la imagen del comentario, el titulo ,
 require_once "UsuarioCargaTxt.php";
 class Tabla
 {
-    public static function traerTabla($buscar)
+    public static function Busqueda($buscar)
     {
         $arrMostrar = array();
-        $comBusqueda = Tabla::TraerComentarios();
+        $comBusqueda = Tabla::TraerComentarios();//traigo todos los comentarios
         foreach ($comBusqueda as $value) 
         {
             //echo var_dump($value);
             //array_search($buscar,$value);
-            if (array_search($buscar,$value) != FALSE) 
+            //echo var_dump(array_search($buscar,$value));
+            if (array_search($buscar,$value) !== FALSE)//veo si hay coincidencia con la busqueda
+            {
+                //echo var_dump(array_search($buscar,$value));
+                array_push($arrMostrar,$value);//si la hay pongo el array
+            }
+            elseif ($buscar ==='')//si no puso nada en la comparasion traigo todos los comentarios
             {
                 array_push($arrMostrar,$value);
             }
         }
-        echo var_dump($arrMostrar);
+        //echo var_dump($arrMostrar);
+        return $arrMostrar;
     }
     public static function TraerComentarios()
     {
         $arrComentarios=array();
-        $strAux ="";
+        $strAux = "";
         $com;
         $recurso=fopen("Comentario.txt","r");
         if ($recurso===FALSE) 
@@ -48,5 +55,5 @@ class Tabla
     }
 }
 //echo var_dump(Tabla::TraerComentarios());
-Tabla::traerTabla('noel@ymail.com');
+Tabla::Busqueda('');
 ?>
