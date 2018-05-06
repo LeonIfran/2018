@@ -1,1 +1,1 @@
-{"email":"leons_12@y.com","nombre":"leon","perfil":"admin","edad":"24","clave":"fox"}{"email":"leon_24@y.com","nombre":"leo","perfil":"usuario","edad":"26","clave":"fox"}
+{"email":"noel@ymail.com","nombre":"noel","perfil":"usuario","edad":"20","clave":"zorro"}

@@ -24,14 +24,14 @@
             $this->atributo1=$a;
             $this->atributo2=$b;
             $this->atributo3=$c;
-            $this->Escribir();
+            //$this->Write();
         }
         public function ToString()
         {
             echo var_dump($this);
             return $this->atributo1." - ".$this->atributo2;
         }
-        public function Escribir()
+        public function Write()
         {
             $recurso=fopen("pruebaJSON.txt","w");
             fwrite($recurso,json_encode($this));
