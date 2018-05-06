@@ -10,7 +10,7 @@ class Tabla
         $comBusqueda = Tabla::TraerComentarios();
         foreach ($comBusqueda as $value) 
         {
-            echo var_dump($value);
+            //echo var_dump($value);
             //array_search($buscar,$value);
             if (array_search($buscar,$value) != FALSE) 
             {
