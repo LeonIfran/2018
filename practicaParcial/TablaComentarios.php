@@ -24,8 +24,37 @@ class Tabla
             }
         }
         //echo var_dump($arrMostrar);
-        return $arrMostrar;
+        //return $arrMostrar;
+        Tabla::CrearTablas($arrMostrar);
     }
+
+    public static function CrearTablas($comentarios)
+    {
+        //$imagenes = scandir("./ImagenesDeComentario");
+        $img;
+        $tabla = "<table border=1>
+                    <tbody>
+                        <thead>
+                            <th>Usuario</th>
+                            <th>titulo</th>
+                            <th>Comentario</th>
+                            <th>Imagen</th>
+                        </thead>";
+        foreach ($comentarios as $value) 
+        {
+
+            $img = glob("./ImagenesDeComentario/$value[1].*");//busco la imagen usando el titulo como base
+            $tabla=$tabla."<tr>
+            <td>$value[0]</td>
+            <td>$value[1]</td>
+            <td>$value[2]</td>
+            <td><img src='{$img[0]}' width='100px' height='100px'></td>
+            </tr>";
+        }
+        $tabla=$tabla."</tbody></table>";
+        echo $tabla;
+    }
+
     public static function TraerComentarios()
     {
         $arrComentarios=array();
@@ -55,5 +84,5 @@ class Tabla
     }
 }
 //echo var_dump(Tabla::TraerComentarios());
-Tabla::Busqueda('');
+Tabla::Busqueda('algo');
 ?>
