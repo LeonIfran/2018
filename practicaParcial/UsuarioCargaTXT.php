@@ -36,6 +36,10 @@ class Usuario
     {
         $this->_nombre = $value;
     }
+    public function getPerfil()
+    {
+        return $this->_perfil;
+    }
 
     //constructor
     public function __construct($mail,$cla,$nom,$per,$ed)
@@ -70,6 +74,19 @@ class Usuario
         }
         
     }
+    public static function GuardarLista($arr)
+    {
+        $recurso = fopen("prueba2.txt","w");
+        foreach ($arr as $key => $value) 
+        {
+            if ($value!==NULL) 
+            {
+                fwrite($recurso,$value->ToString()."\r\n");
+            }
+            
+        }
+        fclose($recurso);
+    }
 
     Public static function TraerUsuarios()
     {
@@ -102,7 +119,7 @@ class Usuario
 }
 
 //$miUsuario= new usuario($_GET["nombre"],$_GET["email"],$_GET["perfil"],$_GET["edad"],$_GET["clave"]);
-$miUsuario= new usuario("noel@ymail.com","zorro","noel","usuario","20");
-$miUsuario::Guardar($miUsuario);
-$miUsuario::TraerUsuarios();
+//$miUsuario= new usuario("noel@ymail.com","zorro","noel","usuario","20");
+//$miUsuario::Guardar($miUsuario);
+//$miUsuario::TraerUsuarios();
 ?>

@@ -24,8 +24,8 @@ class Tabla
             }
         }
         //echo var_dump($arrMostrar);
-        //return $arrMostrar;
-        Tabla::CrearTablas($arrMostrar);
+        return $arrMostrar;
+        //Tabla::CrearTablas($arrMostrar);
     }
 
     public static function CrearTablas($comentarios)
@@ -84,5 +84,7 @@ class Tabla
     }
 }
 //echo var_dump(Tabla::TraerComentarios());
-Tabla::Busqueda('algo');
+//Tabla::Busqueda('algo');
+//$re=Tabla::Busqueda('algo');
+//Tabla::CrearTablas($re);
 ?>

@@ -37,10 +37,20 @@ require_once "UsuarioCargaTXT.php";
         else
         {
             echo "El usuario $correo existe<br>";
-            //return $correo;
             return TRUE;
         }
 
+    }
+    public static function traerPerfil($corr)
+    {
+        $usuarios = usuario::TraerUsuarios();
+        foreach ($usuarios as $item) 
+        {
+            if ($item->getEmail() == $corr) 
+            {
+                return $item->getPerfil();
+            }
+        }
     }
 
 }
